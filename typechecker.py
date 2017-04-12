@@ -22,7 +22,7 @@ def typecheck(t, x, depth: int=0) -> bool:
     #~ if isinstance(t, UnionMeta):  # Python 3.5
     if isinstance(UnionMeta, type(t)):
         indented_print("union, any of:", depth)
-        #~ for param_t in t.__union_params__:
+        #~ for param_t in t.__union_params__:  # Python 3.5
         for param_t in t.__args__:
             log(param_t, x, depth+1)
             if typecheck(param_t, x, depth=depth+1):
@@ -30,7 +30,6 @@ def typecheck(t, x, depth: int=0) -> bool:
     elif isinstance(t, GenericMeta):
         indented_print("GenericMeta", depth)
         
-        #~ import pdb; pdb.set_trace()
         #~ if isinstance(x, t):  # outer level check
         if isinstance(x, t.__origin__):  # outer level check  # Python 3.5
             param_t = t.__args__[0]
